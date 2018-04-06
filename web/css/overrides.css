@@ -1,0 +1,27 @@
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4 {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 300;
+    line-height: 1.5em;
+}
+.footer{
+    background-color: #0f0f0f;
+    color: #C2CCD1;
+    padding: 1.5em 1.5em 1.5em 2.0em;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 70px;
+}
+.t-al-center{
+    text-align: center !important;
+}
+
+.mar-top-10{
+    margin-top: 10px !important;
+}
+.mar-top-20{
+    margin-top: 20px !important;
+}
+.mar-top-40{
+    margin-top: 40px !important;
+}
