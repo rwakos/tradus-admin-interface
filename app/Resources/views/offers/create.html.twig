@@ -110,13 +110,26 @@
             methods: {
                 onSubmit() {
                     if (this.validate()){
-                        //Call to Create...
-
-
-                        //this.reset();
+                        const url = api_base_path + '{{ twig_api_url_offer_create }}' + this.id;
+                        axios({
+                            method: 'POST',
+                            url: url,
+                            data: {
+                                title: this.title,
+                                description: this.description,
+                                email: this.email,
+                                image: this.image
+                            }
+                            })
+                            .then(function (response) {
+                                console.log(response);
+                                this.reset();
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
                     }
                 },
-
                 validate() {
                     this.errors = [];
                     if ($.trim(this.title) === ''){
@@ -125,10 +138,10 @@
                     if ($.trim(this.description) === ''){
                         this.errors.push({tag:'description', message:'You must fill the description'});
                     }
-                    if (!validateEmail(this.email)){
+                    if (!this.validateEmail(this.email)){
                         this.errors.push({tag:'email', message:'You must provide a valid email'});
                     }
-                    if (($.trim(this.image) === '')||(!ValidURL(this.image))){
+                    if (($.trim(this.image) === '')||(!this.ValidURL(this.image))){
                         this.errors.push({tag:'image', message:'You must provide a valid URL'});
                     }
                     if (this.errors.length !== 0){
@@ -150,28 +163,24 @@
                     if (tag==='description' && $.trim(this.description) !== ''){
                         this.errors = this.errors.filter((x)=>x.tag !== 'description');
                     }
-                    if (tag==='email' && (!validateEmail(this.email)) !== ''){
+                    if (tag==='email' && (!this.validateEmail(this.email)) !== ''){
                         this.errors = this.errors.filter((x)=>x.tag !== 'email');
                     }
-                    if (tag==='image' && (!ValidURL(this.image)) !== ''){
+                    if (tag==='image' && (!this.ValidURL(this.image)) !== ''){
                         this.errors = this.errors.filter((x)=>x.tag !== 'image');
                     }
+                },
+                validateEmail(email) {
+                    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return re.test(String(email).toLowerCase());
+                },
+                ValidURL(str) {
+                    var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+                    return regex .test(str);
                 }
-            },
-            mounted() {
-                //this.getOffers();
             }
         });
 
-        function validateEmail(email) {
-            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(String(email).toLowerCase());
-        }
-
-        function ValidURL(str) {
-            var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-            return regex .test(str);
-        }
     </script>
 
 {% endblock %}

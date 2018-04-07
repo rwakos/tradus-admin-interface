@@ -111,10 +111,29 @@
             methods: {
                 onSubmit() {
                     if (this.validate()){
-                        //Call to Create...
+                        //Call to Update...
+                        const url = api_base_path + '{{ twig_api_url_offer_update }}' + this.id;
+                        axios({
+                            method: 'PATCH',
+                            url: url,
+                            data: {
+                                title: this.title,
+                                description: this.description,
+                                email: this.email,
+                                image: this.image
+                            }
+                        })
+                            .then(function (response) {
+                                console.log(response);
+
+                                //Should Redirect or message...
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
 
 
-                        //this.reset();
+
                     }
                 },
 
@@ -152,7 +171,7 @@
                     }
                 },
                 getOffer(){
-                    const url = api_base_path + "/offers/" + this.id;
+                    const url = api_base_path + '{{ twig_api_url_offer_get_one }}' + this.id;
                     axios.get(url).then(
                         response => {
                             this.title= response.data.data.title;

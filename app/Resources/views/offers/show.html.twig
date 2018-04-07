@@ -89,7 +89,7 @@
                     if (this.searchText==''){
                         this.getOffers();
                     } else {
-                        const url = api_base_path + "/offers/"+this.searchText;
+                        const url = api_base_path + '{{ twig_api_url_offer_search }}'+this.searchText;
                         axios.get(url).then(
                             response => this.offers = response.data.data
                         );
@@ -106,11 +106,24 @@
                        showLoaderOnConfirm: true,
                        preConfirm: function() {
                            return new Promise(function(resolve) {
-                               const url = api_base_path + "/offers/destroy";
-                               let data = '{'+this.checkedValue.map((x)=>'"id":'+x).join(",")+'}';
-                               axios.delete(url, { data: { ids: data }}).then(
-                                   this.getOffers()
-                               );
+                               const url = api_base_path + '{{ twig_api_url_offer_delete }}';
+                               const data = '{'+this.checkedValue.map((x)=>'"id":'+x).join(",")+'}';
+
+                               axios({
+                                   method: 'DELETE',
+                                   url: url,
+                                   data: {
+                                       offers: data
+                                   }
+                               })
+                                   .then(function (response) {
+                                       console.log(response);
+                                       //Display Message...
+                                       this.getOffers();
+                                   })
+                                   .catch(function (error) {
+                                       console.log(error);
+                                   });
                            });
                        }
                    }).then(function() {
@@ -118,7 +131,7 @@
                    });
                },
                getOffers(){
-                   const url = api_base_path + "/offers";
+                   const url = api_base_path + '{{ twig_api_url_offer_get_all }}';
                    axios.get(url).then(
                         response => this.offers = response.data.data
                    );

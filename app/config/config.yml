@@ -41,6 +41,13 @@ twig:
         twig_api_path: '%api_path%'
         twig_api_key:  '%api_key%'
 
+        twig_api_url_offer_get_all: '%api_url_offer_get_all%'
+        twig_api_url_offer_get_one:  '%api_url_offer_get_one%'
+        twig_api_url_offer_search: '%api_url_offer_search%'
+        twig_api_url_offer_create:  '%api_url_offer_create%'
+        twig_api_url_offer_update: '%api_url_offer_update%'
+        twig_api_url_offer_delete:  '%api_url_offer_delete%'
+
 # Doctrine Configuration
 doctrine:
     dbal:
