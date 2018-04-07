@@ -30,9 +30,13 @@ class OffersController extends Controller{
     }
 
     /**
-     * @Route("/offers/edit", name="offers-edit")
+     * @Route("/offers/{id}/edit", name="offers-edit")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    function editAction(){
-        return $this->render('offers/edit.html.twig');
+    function editAction($id){
+        return $this->render('offers/edit.html.twig', [
+            'id' => $id
+        ]);
     }
 }

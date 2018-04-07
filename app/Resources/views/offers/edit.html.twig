@@ -1,9 +1,91 @@
 {% extends 'master.html.twig' %}
-{% block title %} Edit Offer | Tradus workshop {% endblock %}
+{% block title %} Create Offer | Tradus workshop {% endblock %}
 
 {% block body %}
-<div id="vue-zone">
-</div>
+    <div id="vue-zone">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="/offers">Back to Offers</a>
+            </div>
+        </div>
+        <div class="row mar-top-20">
+            <div class="card">
+                <div data-background-color="green" class="card-header">
+                    <h4 class="title">Create Offer</h4>
+                    <p class="category">Complete this form</p>
+                </div>
+                <div class="card-content">
+                    <form method="POST" action="" id="form-submit" v-on:submit.prevent="onSubmit">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title"
+                                           size="45"
+                                           v-model="title"
+                                           v-on:blur="evalFixed('title')"
+                                           autofocus="autofocus"
+                                           required
+                                           autofocus>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label">Description</label>
+                                    <input type="text" class="form-control" id="description" name="description"
+                                           size="255"
+                                           v-model="description"
+                                           v-on:blur="evalFixed('description')"
+                                           autofocus="autofocus"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email"
+                                           size="45"
+                                           v-model="email"
+                                           v-on:blur="evalFixed('email')"
+                                           autofocus="autofocus"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label">Image URL</label>
+                                    <input type="text" class="form-control" id="image" name="image"
+                                           size="255"
+                                           v-model="image"
+                                           v-on:blur="evalFixed('image')"
+                                           autofocus="autofocus"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" v-if="image !== '' && ValidURL(image)">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-right">
+                                <div class="form-group">
+                                    <label class="control-label">Image Preview</label>
+                                    <div align="center">
+                                        <img v-bind:src="image" class="img-thumbnail" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% include 'partials/errors_vue.html.twig' %}
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-al-right">
+                                <button class="btn btn-success btn-lg">SAVE</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -13,51 +95,87 @@
     <script>
         const api_base_path = '{{ twig_api_path }}';
         const api_base_key = '{{ twig_api_key }}';
-        var app = new Vue ({
+
+        var app = new Vue({
             el: '#vue-zone',
 
             data: {
-                checkedValue: [],
-                offers:[]
+                id: {{ id }},
+                title: '',
+                description: '',
+                email: '',
+                image: '',
+                errors: []
             },
 
-            methods:{
-                search (){
+            methods: {
+                onSubmit() {
+                    if (this.validate()){
+                        //Call to Create...
 
-                },
-                deleteSelected (){
-                    swal({
-                        title: "Alert",
-                        html: "Are you sure that you want to delete these records?",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonText: "DELETE",
-                        confirmButtonClass: "warning",
-                        showLoaderOnConfirm: true,
-                        preConfirm: function() {
-                            return new Promise(function(resolve) {
-                                const url = api_base_path + "/offers/destroy";
-                                let data = this.checkedValue.join(",");
-                                axios.delete(url).then(
-                                    this.getOffers()
-                                );
-                            });
-                        }
-                    }).then(function() {
 
-                    });
+                        //this.reset();
+                    }
                 },
-                getOffers(){
-                    const url = api_base_path + "/offers";
+
+                validate() {
+                    this.errors = [];
+                    if ($.trim(this.title) === ''){
+                        this.errors.push({tag:'title', message:'You must fill the title'});
+                    }
+                    if ($.trim(this.description) === ''){
+                        this.errors.push({tag:'description', message:'You must fill the description'});
+                    }
+                    if (!this.validateEmail(this.email)){
+                        this.errors.push({tag:'email', message:'You must provide a valid email'});
+                    }
+                    if (($.trim(this.image) === '')||(!this.ValidURL(this.image))){
+                        this.errors.push({tag:'image', message:'You must provide a valid URL'});
+                    }
+                    if (this.errors.length !== 0){
+                        return false;
+                    }
+                    return true;
+                },
+                evalFixed(tag){
+                    if (tag==='title' && $.trim(this.title) !== ''){
+                        this.errors = this.errors.filter((x)=>x.tag !== 'title');
+                    }
+                    if (tag==='description' && $.trim(this.description) !== ''){
+                        this.errors = this.errors.filter((x)=>x.tag !== 'description');
+                    }
+                    if (tag==='email' && (!this.validateEmail(this.email)) !== ''){
+                        this.errors = this.errors.filter((x)=>x.tag !== 'email');
+                    }
+                    if (tag==='image' && (!this.ValidURL(this.image)) !== ''){
+                        this.errors = this.errors.filter((x)=>x.tag !== 'image');
+                    }
+                },
+                getOffer(){
+                    const url = api_base_path + "/offers/" + this.id;
                     axios.get(url).then(
-                        response => this.offers = response.data.data
+                        response => {
+                            this.title= response.data.data.title;
+                            this.description= response.data.data.description;
+                            this.email= response.data.data.email;
+                            this.image= response.data.data.image;
+                        }
+
                     );
+                }, ValidURL(str) {
+                    var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+                    return regex .test(str);
+                }, validateEmail(email) {
+                    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return re.test(String(email).toLowerCase());
                 }
+
             },
             mounted() {
-                this.getOffers();
+                this.getOffer();
             }
         });
+
     </script>
 
 {% endblock %}

@@ -45,7 +45,7 @@
                         <tbody>
                         {% verbatim %}
                             <tr v-for="offer in offers">
-                                <td width="15%"><a v-bind:href="'/offers/'+offer.id"><img class="img-thumbnail" :src="offer.image" /></a></td>
+                                <td width="15%"><a v-bind:href="'/offers/'+offer.id+'/edit'"><img class="img-thumbnail" :src="offer.image" /></a></td>
                                 <td><h4 v-text="offer.title"></h4><p v-text="offer.description"></p></td>
                                 <td v-text="offer.email"></td>
                                 <td v-text="offer.created_at"></td>

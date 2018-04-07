@@ -15,7 +15,7 @@
                     <p class="category">Complete this form</p>
                 </div>
                 <div class="card-content">
-                    <form method="POST" action="" id="form-submit">
+                    <form method="POST" action="" id="form-submit" v-on:submit.prevent="onSubmit">
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group label-floating">
@@ -23,6 +23,7 @@
                                     <input type="text" class="form-control" id="title" name="title"
                                            size="45"
                                            v-model="title"
+                                           v-on:blur="evalFixed('title')"
                                            value=""
                                            required
                                            autofocus>
@@ -34,6 +35,7 @@
                                     <input type="text" class="form-control" id="description" name="description"
                                            size="255"
                                            v-model="description"
+                                           v-on:blur="evalFixed('description')"
                                            value=""
                                            required>
                                 </div>
@@ -46,6 +48,7 @@
                                     <input type="text" class="form-control" id="email" name="email"
                                            size="45"
                                            v-model="email"
+                                           v-on:blur="evalFixed('email')"
                                            value=""
                                            required>
                                 </div>
@@ -56,14 +59,23 @@
                                     <input type="text" class="form-control" id="image" name="image"
                                            size="255"
                                            v-model="image"
+                                           v-on:blur="evalFixed('image')"
                                            value=""
                                            required>
                                 </div>
                             </div>
                         </div>
-                        {% if errors %}
-                            {% include 'partials/errors.html.twig' %}
-                        {% endif %}
+                        <div class="row" v-if="image !== ''">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-right">
+                                <div class="form-group">
+                                    <label class="control-label">Image Preview</label>
+                                    <div align="center">
+                                        <img v-bind:src="image" class="img-thumbnail" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% include 'partials/errors_vue.html.twig' %}
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-al-right">
                                 <button class="btn btn-success">SAVE</button>
@@ -73,8 +85,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 {% endblock %}
 
@@ -98,11 +108,11 @@
             },
 
             methods: {
-                submit() {
+                onSubmit() {
                     if (this.validate()){
                         //Call to Create...
 
-                        
+
                         //this.reset();
                     }
                 },
@@ -110,16 +120,16 @@
                 validate() {
                     this.errors = [];
                     if ($.trim(this.title) === ''){
-                        this.errors.push({title:'You must fill the item'});
+                        this.errors.push({tag:'title', message:'You must fill the title'});
                     }
                     if ($.trim(this.description) === ''){
-                        this.errors.push({description:'You must fill the item'});
+                        this.errors.push({tag:'description', message:'You must fill the description'});
                     }
                     if (!validateEmail(this.email)){
-                        this.errors.push({email:'You must provide a valid email'});
+                        this.errors.push({tag:'email', message:'You must provide a valid email'});
                     }
                     if (($.trim(this.image) === '')||(!ValidURL(this.image))){
-                        this.errors.push({image:'You must provide a valid URL'});
+                        this.errors.push({tag:'image', message:'You must provide a valid URL'});
                     }
                     if (this.errors.length !== 0){
                         return false;
@@ -132,9 +142,21 @@
                     this.email= '';
                     this.image= '';
                     this.errors= [];
+                },
+                evalFixed(tag){
+                    if (tag==='title' && $.trim(this.title) !== ''){
+                        this.errors = this.errors.filter((x)=>x.tag !== 'title');
+                    }
+                    if (tag==='description' && $.trim(this.description) !== ''){
+                        this.errors = this.errors.filter((x)=>x.tag !== 'description');
+                    }
+                    if (tag==='email' && (!validateEmail(this.email)) !== ''){
+                        this.errors = this.errors.filter((x)=>x.tag !== 'email');
+                    }
+                    if (tag==='image' && (!ValidURL(this.image)) !== ''){
+                        this.errors = this.errors.filter((x)=>x.tag !== 'image');
+                    }
                 }
-
-
             },
             mounted() {
                 //this.getOffers();
