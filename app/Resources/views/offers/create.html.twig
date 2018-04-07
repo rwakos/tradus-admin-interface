@@ -1,0 +1,155 @@
+{% extends 'master.html.twig' %}
+{% block title %} Create Offer | Tradus workshop {% endblock %}
+
+{% block body %}
+    <div id="vue-zone">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="/offers">Back to Offers</a>
+            </div>
+        </div>
+        <div class="row mar-top-20">
+            <div class="card">
+                <div data-background-color="green" class="card-header">
+                    <h4 class="title">Create Offer</h4>
+                    <p class="category">Complete this form</p>
+                </div>
+                <div class="card-content">
+                    <form method="POST" action="" id="form-submit">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title"
+                                           size="45"
+                                           v-model="title"
+                                           value=""
+                                           required
+                                           autofocus>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Description</label>
+                                    <input type="text" class="form-control" id="description" name="description"
+                                           size="255"
+                                           v-model="description"
+                                           value=""
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email"
+                                           size="45"
+                                           v-model="email"
+                                           value=""
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Image URL</label>
+                                    <input type="text" class="form-control" id="image" name="image"
+                                           size="255"
+                                           v-model="image"
+                                           value=""
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        {% if errors %}
+                            {% include 'partials/errors.html.twig' %}
+                        {% endif %}
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-al-right">
+                                <button class="btn btn-success">SAVE</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('vendor/vue/vue-dev.js') }}"></script>
+    <script src="{{ asset('vendor/axios/axios.min.js') }}"></script>
+
+    <script>
+        const api_base_path = '{{ twig_api_path }}';
+        const api_base_key = '{{ twig_api_key }}';
+
+        var app = new Vue({
+            el: '#vue-zone',
+
+            data: {
+                title: '',
+                description: '',
+                email: '',
+                image: '',
+                errors: []
+            },
+
+            methods: {
+                submit() {
+                    if (this.validate()){
+                        //Call to Create...
+
+                        
+                        //this.reset();
+                    }
+                },
+
+                validate() {
+                    this.errors = [];
+                    if ($.trim(this.title) === ''){
+                        this.errors.push({title:'You must fill the item'});
+                    }
+                    if ($.trim(this.description) === ''){
+                        this.errors.push({description:'You must fill the item'});
+                    }
+                    if (!validateEmail(this.email)){
+                        this.errors.push({email:'You must provide a valid email'});
+                    }
+                    if (($.trim(this.image) === '')||(!ValidURL(this.image))){
+                        this.errors.push({image:'You must provide a valid URL'});
+                    }
+                    if (this.errors.length !== 0){
+                        return false;
+                    }
+                    return true;
+                },
+                reset(){
+                    this.title= '';
+                    this.description= '';
+                    this.email= '';
+                    this.image= '';
+                    this.errors= [];
+                }
+
+
+            },
+            mounted() {
+                //this.getOffers();
+            }
+        });
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        function ValidURL(str) {
+            var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+            return regex .test(str);
+        }
+    </script>
+
+{% endblock %}

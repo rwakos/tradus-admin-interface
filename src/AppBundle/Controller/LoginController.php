@@ -28,7 +28,7 @@ class LoginController extends Controller {
 
         return $this->render('login/show.html.twig', [
             'errors' => $errors,
-            'email'  => $lastUserName,
+            'username'  => $lastUserName,
         ]);
     }
 

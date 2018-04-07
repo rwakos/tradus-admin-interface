@@ -1,0 +1,63 @@
+{% extends 'master.html.twig' %}
+{% block title %} Edit Offer | Tradus workshop {% endblock %}
+
+{% block body %}
+<div id="vue-zone">
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('vendor/vue/vue-dev.js') }}"></script>
+    <script src="{{ asset('vendor/axios/axios.min.js') }}"></script>
+
+    <script>
+        const api_base_path = '{{ twig_api_path }}';
+        const api_base_key = '{{ twig_api_key }}';
+        var app = new Vue ({
+            el: '#vue-zone',
+
+            data: {
+                checkedValue: [],
+                offers:[]
+            },
+
+            methods:{
+                search (){
+
+                },
+                deleteSelected (){
+                    swal({
+                        title: "Alert",
+                        html: "Are you sure that you want to delete these records?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "DELETE",
+                        confirmButtonClass: "warning",
+                        showLoaderOnConfirm: true,
+                        preConfirm: function() {
+                            return new Promise(function(resolve) {
+                                const url = api_base_path + "/offers/destroy";
+                                let data = this.checkedValue.join(",");
+                                axios.delete(url).then(
+                                    this.getOffers()
+                                );
+                            });
+                        }
+                    }).then(function() {
+
+                    });
+                },
+                getOffers(){
+                    const url = api_base_path + "/offers";
+                    axios.get(url).then(
+                        response => this.offers = response.data.data
+                    );
+                }
+            },
+            mounted() {
+                this.getOffers();
+            }
+        });
+    </script>
+
+{% endblock %}
