@@ -22,6 +22,10 @@ class LoginController extends Controller {
         $errors = $auth->getLastAuthenticationError();
         $lastUserName = $auth->getLastUsername();
 
+        if (!empty($errors)){
+            $this->addFlash("success", "This is a success message");
+        }
+
         return $this->render('login/show.html.twig', [
             'errors' => $errors,
             'email'  => $lastUserName,

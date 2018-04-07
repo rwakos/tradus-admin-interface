@@ -3,7 +3,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4 {
     font-weight: 300;
     line-height: 1.5em;
 }
-.footer{
+.blank-footer{
     background-color: #0f0f0f;
     color: #C2CCD1;
     padding: 1.5em 1.5em 1.5em 2.0em;
@@ -24,4 +24,30 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4 {
 }
 .mar-top-40{
     margin-top: 40px !important;
+}
+
+.flash-notice{
+    bottom: 40px;
+    position: absolute;
+    right: 20px;
+    z-index: 10;
+    animation: flash-message 10s forwards;
+    font-size: 24px;
+}
+
+@keyframes flash-message {
+    0%   {opacity: 1;}
+    100% {opacity: 0; display:none;}
+}
+
+.btn-primary{
+    background-color: #ff9739 !important;
+}
+
+.form-control, .form-group .form-control {
+    background-image: linear-gradient(#ff9739, #ff9739), linear-gradient(#D2D2D2, #D2D2D2) !important;
+}
+
+.blank-page{
+    background-color: white !important;
 }

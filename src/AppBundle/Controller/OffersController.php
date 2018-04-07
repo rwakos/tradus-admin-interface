@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class OffersController extends Controller{
-
-
     /**
      * @Route("/offers", name="offers")
      */

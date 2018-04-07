@@ -33,3 +33,10 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    crv.authentication_success_handler:
+            class: AppBundle\Security\AuthenticationSuccessHandler
+            arguments:
+                - "@security.http_utils"
+                - []
+                - "@session.flash_bag"
