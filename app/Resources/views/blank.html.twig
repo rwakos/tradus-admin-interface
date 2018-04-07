@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Workshop for Tradus">
     <meta name="author" content="Richard Reveron">
     <link rel="icon" href="{{ asset('images/favicon.ico') }}" rel="shortcut icon">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon-32x32.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
-    <title>Signin Admin Site</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('vendor/twbs/bootstrap/dist/css/bootstrap.css') }}" rel="stylesheet">
@@ -38,11 +38,8 @@
 <div class="container mar-top-40">
     {% block body %}{% endblock %}
 </div> <!-- /container -->
-<div class="footer mar-top-40">
-    <div class="container">
-        Made by Richard Reveron 2018 @tradus
-    </div>
-</div>
+    {% include 'partials/footer.html.twig' %}
+
 
 <script src="{{ asset('vendor/components/jquery/jquery.js') }}"></script>
 <script src="{{ asset('vendor/twbs/bootstrap/dist/js/bootstrap.js') }}"></script>
