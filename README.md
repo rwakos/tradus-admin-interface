@@ -42,12 +42,12 @@ Login:
 
 Offers:
 
-![Offers:](/admin-offers.png)
+![Offers:](/wiki/admin-offers.png)
 
 
 View as a User:
 
-![View as a User:](/admin-offers-as-user-role.png)
+![View as a User:](/wiki/admin-offers-as-user-role.png)
 
 
 Search in Offers:
