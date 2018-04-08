@@ -11,7 +11,7 @@
         <div class="row mar-top-20">
             <div class="card">
                 <div data-background-color="green" class="card-header">
-                    <h4 class="title">Create Offer</h4>
+                    <h4 class="title">Offer's Detail</h4>
                     <p class="category">Complete this form</p>
                 </div>
                 <div class="card-content">
@@ -86,7 +86,7 @@
                         {% include 'partials/errors_vue.html.twig' %}
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-al-right">
-                                <button class="btn btn-success btn-lg">SAVE</button>
+                                <button class="btn btn-primary btn-lg btn-block" v-bind:disabled="enabled===false">SAVE</button>
                             </div>
                         </div>
                     </form>
@@ -114,7 +114,8 @@
                 email: '',
                 image: '',
                 created_at: '',
-                errors: []
+                errors: [],
+                enabled: true
             },
 
             methods: {
@@ -122,27 +123,36 @@
                     if (this.validate()){
                         //Call to Update...
                         const url = api_base_path + '{{ twig_api_url_offer_update }}' + this.id;
-                        axios({
-                            method: 'PATCH',
-                            url: url,
-                            data: {
+                        Pace.restart();
+
+                        axios.put(url,{
                                 title: this.title,
                                 description: this.description,
                                 email: this.email,
                                 image: this.image
-                            }
                         })
                             .then(function (response) {
-                                console.log(response);
-
-                                //Should Redirect or message...
+                                swal({
+                                    title: "Success",
+                                    text: "",
+                                    timer: 2000,
+                                    type: "success",
+                                    showConfirmButton: false
+                                });
                             })
                             .catch(function (error) {
-                                console.log(error);
+                                let message = "Error while executing the request";
+                                if (error.response){
+                                    message = error.response.data;
+                                }
+                                swal({
+                                    title: "Error",
+                                    text: message,
+                                    timer: 2000,
+                                    type: "warning",
+                                    showConfirmButton: false
+                                });
                             });
-
-
-
                     }
                 },
                 validate() {
@@ -189,8 +199,20 @@
                             this.image= response.data.image;
                             this.created_at= response.data.created_at;
                         }
+                    )
+                        .catch((error)=>{
+                            this.enabled = false;
 
-                    );
+                            swal({
+                                title: "Error",
+                                text: "The offer does not exists, or there is no connection at the moment. Try again later.",
+                                timer: 2000,
+                                type: "warning",
+                                showConfirmButton: false
+                            });
+
+                            setTimeout(()=>{ window.location.replace('/offers'); },2000);
+                        });
                 },
                 ValidURL(str) {
                     var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;

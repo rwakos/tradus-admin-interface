@@ -58,7 +58,14 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <h4 v-text="offer.title"></h4>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a v-bind:href="'/offers/'+offer.id+'/edit'"><h4 v-text="offer.title"></h4></a>
+                                    {% else %}
+                                        <h4 v-text="offer.title"></h4>
+                                    {% endif %}
+
+
+
                                     <p v-text="offer.description"></p>
                                     <p><a v-bind:href="'mailto:'+offer.email" v-text="'Email: '+offer.email"></a></p>
                                     <p v-text="'Created: '+formatDate(offer.created_at)"></p>
@@ -140,6 +147,19 @@
                        })
                        .catch(function (error) {
                            this.offers = [];
+                           let message = "There is no connection at the moment.";
+                           if (error.response){
+                               message = error.response.data;
+                           }
+
+                           swal({
+                               title: "Error",
+                               text: message,
+                               timer: 2000,
+                               type: "warning",
+                               showConfirmButton: false
+                           });
+
                        });
                },
                deleteSelected (){
