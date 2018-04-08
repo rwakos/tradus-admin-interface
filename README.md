@@ -1,78 +1,74 @@
-Symfony Standard Edition
+Admin Site for Offers @Tradus
 ========================
 
-**WARNING**: This distribution does not support Symfony 4. See the
-[Installing & Setting up the Symfony Framework][15] page to find a replacement
-that fits you best.
+Admin site, implementing CRUD operations on a API and Authentication Roles (managed in memory).
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
-
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
-
-What's inside?
+Frameworks Used
 --------------
 
-The Symfony Standard Edition is configured with the following defaults:
+### Front End ###
+* Jquery
+* Bootstrap 3.3.7
+* Material Dashboard [(Creative Tim - Free Version)][2]
+* SweetAlert2
+* Vue.js (version 2)
+* Axios
 
-  * An AppBundle you can use to start coding;
+### BackEnd ###
 
-  * Twig as the only configured template engine;
+* Symfony 3.4
 
-  * Doctrine ORM/DBAL;
+Users and Passwords
+--------------
 
-  * Swiftmailer;
+* Username: [admin][1]   | ROLE_ADMIN
 
-  * Annotations enabled for everything.
+        @Password: tradus2018
 
-It comes pre-configured with the following bundles:
+* Username: [dummy][1]   | ROLE_USER
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+        @Password: tradus2018
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+ROLE_USER: are not allowed to edit any source, and they are not authorized by the firewall.yaml to even view the templates for create or edit.
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
+Screen Shots
+--------------
 
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
+Login:
 
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
+![Login:](/wiki/admin-login.png)
 
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
 
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
+Offers:
 
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
+![Offers:](/admin-offers.png)
 
-  * [**SensioGeneratorBundle**][13] (in dev env) - Adds code generation
-    capabilities
 
-  * [**WebServerBundle**][14] (in dev env) - Adds commands for running applications
-    using the PHP built-in web server
+View as a User:
 
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
+![View as a User:](/admin-offers-as-user-role.png)
 
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
 
-Enjoy!
+Search in Offers:
 
-[1]:  https://symfony.com/doc/3.4/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.4/doctrine.html
-[8]:  https://symfony.com/doc/3.4/templating.html
-[9]:  https://symfony.com/doc/3.4/security.html
-[10]: https://symfony.com/doc/3.4/email.html
-[11]: https://symfony.com/doc/3.4/logging.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
-[14]: https://symfony.com/doc/current/setup/built_in_web_server.html
-[15]: https://symfony.com/doc/current/setup.html
-"# tradus-admin-interface" 
+![Search in Offers:](/wiki/admin-offers-search.png)
+
+
+Create a Offer:
+
+![Create a Offer:](/wiki/admin-offer-new.png)
+
+
+After Creating a Offer:
+
+![After Creating a Offer:](/wiki/admin-offer-new-success.png)
+
+
+Edit a Offer:
+
+![Login:](/wiki/admin-offer-edit.png)
+
+
+[1]:    https://void.com/
+[2]:    http://www.creative-tim.com
