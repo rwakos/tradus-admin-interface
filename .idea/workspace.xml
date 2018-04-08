@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94a2c49d-7116-41d7-826c-67dd36131edd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/offers/create.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/offers/create.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/offers/edit.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/offers/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/offers/show.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/offers/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/overrides.css" afterPath="$PROJECT_DIR$/web/css/overrides.css" />
-    </list>
+    <list default="true" id="94a2c49d-7116-41d7-826c-67dd36131edd" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/app/Resources/views/offers/edit.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="260">
-              <caret line="146" column="33" lean-forward="true" selection-start-line="146" selection-start-column="33" selection-end-line="146" selection-end-column="33" />
+              <caret line="146" column="33" lean-forward="false" selection-start-line="146" selection-start-column="33" selection-end-line="146" selection-end-column="33" />
               <folding>
                 <element signature="e#326#5296#0#HTML" expanded="false" />
                 <element signature="e#7710#8643#0#HTML" expanded="false" />
@@ -320,7 +315,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1523039859695</updated>
-      <workItem from="1523039860912" duration="71964000" />
+      <workItem from="1523039860912" duration="72507000" />
     </task>
     <servers />
   </component>
@@ -333,7 +328,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71964000" />
+    <option name="totallyTimeSpent" value="72507000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -803,7 +798,7 @@
     <entry file="file://$PROJECT_DIR$/app/Resources/views/offers/edit.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
-          <caret line="146" column="33" lean-forward="true" selection-start-line="146" selection-start-column="33" selection-end-line="146" selection-end-column="33" />
+          <caret line="146" column="33" lean-forward="false" selection-start-line="146" selection-start-column="33" selection-end-line="146" selection-end-column="33" />
           <folding>
             <element signature="e#326#5296#0#HTML" expanded="false" />
             <element signature="e#7710#8643#0#HTML" expanded="false" />
