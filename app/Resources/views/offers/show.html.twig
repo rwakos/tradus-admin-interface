@@ -17,9 +17,11 @@
             </form>
         </div>
         <div class="col-lg-4 col-md-4 col-xs-4">
+            {% if is_granted('ROLE_ADMIN') %}
             <h4 class="text-al-right mar-top-10">
                 <a href="/offers/create">++ Add New</a>
             </h4>
+            {% endif %}
         </div>
     </div>
     <div class="row">
@@ -34,21 +36,36 @@
                         <th width="65%" colspan="2">Offer Detail's</th>
                         <th>Email</th>
                         <th>Created</th>
-                        <th width="5%">
-                            <button data-background-color="red" class="btn btn-primary"
-                                    v-bind:disabled="Object.keys(checkedValue).length === 0"
-                                    v-on:click="deleteSelected()"
-                                    style="max-width: 40px !important; padding-left: 12px !important;">
-                                <i class="material-icons">delete</i></button>
-                        </th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th width="5%">
+                                <button data-background-color="red" class="btn btn-primary"
+                                        v-bind:disabled="Object.keys(checkedValue).length === 0"
+                                        v-on:click="deleteSelected()"
+                                        style="max-width: 40px !important; padding-left: 12px !important;">
+                                    <i class="material-icons">delete</i></button>
+                            </th>
+                        {% endif %}
+
                         </thead>
                         <tbody>
-                        {% verbatim %}
                             <tr v-for="offer in offers">
-                                <td width="15%"><a v-bind:href="'/offers/'+offer.id+'/edit'"><img class="img-thumbnail" :src="offer.image" /></a></td>
-                                <td><h4 v-text="offer.title"></h4><p v-text="offer.description"></p></td>
+                                <td width="15%">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <a v-bind:href="'/offers/'+offer.id+'/edit'"><img class="img-thumbnail" :src="offer.image" /></a>
+                                    {% else %}
+                                        <img class="img-thumbnail" :src="offer.image" />
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <h4 v-text="offer.title"></h4>
+                                    <p v-text="offer.description"></p>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="pull-right" v-bind:href="'/offers/'+offer.id+'/edit'">view more</a>
+                                    {% endif %}
+                                </td>
                                 <td v-text="offer.email"></td>
                                 <td v-text="offer.created_at"></td>
+                                {% if is_granted('ROLE_ADMIN') %}
                                 <td>
                                     <div class="checkbox checkbox-green-light">
                                         <label>
@@ -57,8 +74,8 @@
                                         </label>
                                     </div>
                                 </td>
+                                {% endif %}
                             </tr>
-                        {% endverbatim %}
                         </tbody>
                     </table>
                 </div>
@@ -107,7 +124,7 @@
                        preConfirm: function() {
                            return new Promise(function(resolve) {
                                const url = api_base_path + '{{ twig_api_url_offer_delete }}';
-                               const data = '{'+this.checkedValue.map((x)=>'"id":'+x).join(",")+'}';
+                               const data = '['+this.checkedValue.map((x)=>'{"id":'+x+'}').join(",")+']';
 
                                axios({
                                    method: 'DELETE',
@@ -117,8 +134,6 @@
                                    }
                                })
                                    .then(function (response) {
-                                       console.log(response);
-                                       //Display Message...
                                        this.getOffers();
                                    })
                                    .catch(function (error) {
