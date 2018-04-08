@@ -63,9 +63,6 @@
                                     {% else %}
                                         <h4 v-text="offer.title"></h4>
                                     {% endif %}
-
-
-
                                     <p v-text="offer.description"></p>
                                     <p><a v-bind:href="'mailto:'+offer.email" v-text="'Email: '+offer.email"></a></p>
                                     <p v-text="'Created: '+formatDate(offer.created_at)"></p>
@@ -82,6 +79,18 @@
                                         </label>
                                     </div>
                                 </td>
+                                {% endif %}
+                            </tr>
+                            <tr v-show="checkedValue.length > 5">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <td colspan="2"></td>
+                                    <td width="5%">
+                                        <button data-background-color="red" class="btn btn-primary"
+                                                v-bind:disabled="Object.keys(checkedValue).length === 0"
+                                                v-on:click="deleteSelected()"
+                                                style="max-width: 40px !important; padding-left: 12px !important;">
+                                            <i class="material-icons">delete</i></button>
+                                    </td>
                                 {% endif %}
                             </tr>
                         </tbody>

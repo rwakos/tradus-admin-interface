@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94a2c49d-7116-41d7-826c-67dd36131edd" name="Default" comment="" />
+    <list default="true" id="94a2c49d-7116-41d7-826c-67dd36131edd" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/offers/show.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/offers/show.html.twig" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +30,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="edit.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/offers/edit.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="260">
@@ -46,21 +48,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="show.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/offers/show.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="120" column="39" lean-forward="false" selection-start-line="120" selection-start-column="24" selection-end-line="120" selection-end-column="39" />
+            <state relative-caret-position="123">
+              <caret line="83" column="63" lean-forward="false" selection-start-line="83" selection-start-column="63" selection-end-line="83" selection-end-column="63" />
               <folding>
-                <element signature="e#6068#7530#0#HTML" expanded="false" />
-                <element signature="e#7564#7618#0#HTML" expanded="false" />
-                <element signature="e#7644#8178#0#HTML" expanded="false" />
-                <element signature="e#8206#8521#0#HTML" expanded="false" />
-                <marker date="1523216693598" expanded="true" signature="2518:4593" ph="..." />
-                <marker date="1523216693598" expanded="true" signature="4049:4515" ph="..." />
-                <marker date="1523216693598" expanded="true" signature="4129:4477" ph="..." />
-                <marker date="1523216693598" expanded="true" signature="4177:4434" ph="..." />
-                <marker date="1523216693598" expanded="true" signature="4303:4385" ph="..." />
+                <element signature="e#6116#6218#0#HTML" expanded="false" />
+                <element signature="e#6240#9578#0#HTML" expanded="false" />
+                <element signature="e#6916#8378#0#HTML" expanded="false" />
+                <element signature="e#8412#8466#0#HTML" expanded="false" />
+                <element signature="e#8492#9026#0#HTML" expanded="false" />
+                <element signature="e#9054#9369#0#HTML" expanded="false" />
+                <marker date="1523224156873" expanded="true" signature="2518:4590" ph="..." />
+                <marker date="1523224156873" expanded="true" signature="4046:4512" ph="..." />
+                <marker date="1523224156873" expanded="true" signature="4126:4474" ph="..." />
+                <marker date="1523224156873" expanded="true" signature="4174:4431" ph="..." />
+                <marker date="1523224156873" expanded="true" signature="4300:4382" ph="..." />
               </folding>
             </state>
           </provider>
@@ -131,8 +135,8 @@
         <option value="$PROJECT_DIR$/app/Resources/views/partials/header.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/offers/create.html.twig" />
         <option value="$PROJECT_DIR$/web/css/overrides.css" />
-        <option value="$PROJECT_DIR$/app/Resources/views/offers/show.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/offers/edit.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/offers/show.html.twig" />
       </list>
     </option>
   </component>
@@ -315,7 +319,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1523039859695</updated>
-      <workItem from="1523039860912" duration="72507000" />
+      <workItem from="1523039860912" duration="72883000" />
     </task>
     <servers />
   </component>
@@ -328,7 +332,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72507000" />
+    <option name="totallyTimeSpent" value="72883000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
@@ -762,24 +766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/offers/show.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="120" column="39" lean-forward="false" selection-start-line="120" selection-start-column="24" selection-end-line="120" selection-end-column="39" />
-          <folding>
-            <element signature="e#6068#7530#0#HTML" expanded="false" />
-            <element signature="e#7564#7618#0#HTML" expanded="false" />
-            <element signature="e#7644#8178#0#HTML" expanded="false" />
-            <element signature="e#8206#8521#0#HTML" expanded="false" />
-            <marker date="1523216693598" expanded="true" signature="2518:4593" ph="..." />
-            <marker date="1523216693598" expanded="true" signature="4049:4515" ph="..." />
-            <marker date="1523216693598" expanded="true" signature="4129:4477" ph="..." />
-            <marker date="1523216693598" expanded="true" signature="4177:4434" ph="..." />
-            <marker date="1523216693598" expanded="true" signature="4303:4385" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/offers/create.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="491">
@@ -807,6 +793,26 @@
             <element signature="e#10989#11257#0#HTML" expanded="false" />
             <element signature="e#11292#11458#0#HTML" expanded="false" />
             <element signature="e#11497#11545#0#HTML" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/offers/show.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="83" column="63" lean-forward="false" selection-start-line="83" selection-start-column="63" selection-end-line="83" selection-end-column="63" />
+          <folding>
+            <element signature="e#6116#6218#0#HTML" expanded="false" />
+            <element signature="e#6240#9578#0#HTML" expanded="false" />
+            <element signature="e#6916#8378#0#HTML" expanded="false" />
+            <element signature="e#8412#8466#0#HTML" expanded="false" />
+            <element signature="e#8492#9026#0#HTML" expanded="false" />
+            <element signature="e#9054#9369#0#HTML" expanded="false" />
+            <marker date="1523224156873" expanded="true" signature="2518:4590" ph="..." />
+            <marker date="1523224156873" expanded="true" signature="4046:4512" ph="..." />
+            <marker date="1523224156873" expanded="true" signature="4126:4474" ph="..." />
+            <marker date="1523224156873" expanded="true" signature="4174:4431" ph="..." />
+            <marker date="1523224156873" expanded="true" signature="4300:4382" ph="..." />
           </folding>
         </state>
       </provider>
