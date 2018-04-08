@@ -75,12 +75,15 @@ td {
     text-align: right !important;
 }
 .img-thumbnail{
-    max-width: 80px !important;
+    max-width: 180px !important;
     height: auto !important;
 }
 td > h4{
     padding-top: 0px !important;
     margin-top: 0px !important;
+}
+.css-hidden{
+    display: none;
 }
 /* Material - Dashboard Override -----------------------------------*/
 .btn-primary{
@@ -95,6 +98,10 @@ td > h4{
     color: #66bb6a !important;
 }
 
+.main-panel>.content {
+    margin-top: 50px;
+    padding: 0px 15px;
+}
 /*----- SweetAlert -----------------------*/
 button.swal2-confirm{
     background-color: red !important;

@@ -5,7 +5,7 @@
 <div id="vue-zone">
     <div class="row">
         <div class="col-lg-8 col-md-8 col-xs-8">
-            <form class="navbar-form form-search" role="search" method="get" id="form-search" v-on:submit="search()">
+            <form class="navbar-form form-search" role="search" method="get" id="form-search" v-on:submit.prevent="search()">
                 <div class="form-group is-empty w-80">
                     <input type="text" class="form-control w-100" placeholder="Search" v-model="searchText">
                     <span class="material-input"></span>
@@ -29,13 +29,15 @@
             <div class="card">
                 <div class="card-header" data-background-color="green">
                     <h4 class="title">List of Offers</h4>
+                    <p class="category"
+                       v-if="searchText !== ''"
+                       v-text="'Searching for: '+searchText">
+                    </p>
                 </div>
                 <div class="card-content table-responsive">
-                    <table class="table">
+                    <table class="table" v-show="offers.length > 0">
                         <thead class="text-primary">
-                        <th width="65%" colspan="2">Offer Detail's</th>
-                        <th>Email</th>
-                        <th>Created</th>
+                        <th width="80%" colspan="2">Offer Detail's</th>
                         {% if is_granted('ROLE_ADMIN') %}
                             <th width="5%">
                                 <button data-background-color="red" class="btn btn-primary"
@@ -45,7 +47,6 @@
                                     <i class="material-icons">delete</i></button>
                             </th>
                         {% endif %}
-
                         </thead>
                         <tbody>
                             <tr v-for="offer in offers">
@@ -59,12 +60,12 @@
                                 <td>
                                     <h4 v-text="offer.title"></h4>
                                     <p v-text="offer.description"></p>
+                                    <p><a v-bind:href="'mailto:'+offer.email" v-text="'Email: '+offer.email"></a></p>
+                                    <p v-text="'Created: '+formatDate(offer.created_at)"></p>
                                     {% if is_granted('ROLE_ADMIN') %}
                                         <a class="pull-right" v-bind:href="'/offers/'+offer.id+'/edit'">view more</a>
                                     {% endif %}
                                 </td>
-                                <td v-text="offer.email"></td>
-                                <td v-text="offer.created_at"></td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <td>
                                     <div class="checkbox checkbox-green-light">
@@ -78,6 +79,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <p v-bind:class="offers.length !==0 ? 'css-hidden' : ''"> There are no Offers </p>
                 </div>
             </div>
         </div>
@@ -88,7 +90,7 @@
 {% block javascripts %}
     <script src="{{ asset('vendor/vue/vue-dev.js') }}"></script>
     <script src="{{ asset('vendor/axios/axios.min.js') }}"></script>
-
+    <script src="{{ asset('vendor/moment/moment.js') }}"></script>
     <script>
         const api_base_path = '{{ twig_api_path }}';
         const api_base_key = '{{ twig_api_key }}';
@@ -104,15 +106,46 @@
            methods:{
                search (){
                     if (this.searchText==''){
+                        Pace.restart();
                         this.getOffers();
                     } else {
                         const url = api_base_path + '{{ twig_api_url_offer_search }}'+this.searchText;
+                        this.offers=[];
+                        Pace.restart();
                         axios.get(url).then(
                             response => this.offers = response.data
-                        );
+                        ).catch(function (error) {
+                            this.offers = [];
+                        });
                     }
                },
+               deleteExecute(){
+                   const url = api_base_path + '{{ twig_api_url_offer_delete }}';
+                   let data_arr =  this.checkedValue;
+                   const data = '['+data_arr.map((x)=>'{"id":'+x+'}').join(",")+']';
+                   Pace.restart();
+
+                   axios.delete(url, {data: {
+                       offers: data
+                   }})
+                       .then(()=>{
+                           swal({
+                               title: "Success",
+                               text: "The offers were deleted",
+                               timer: 2000,
+                               type: "success",
+                               showConfirmButton: false
+                           });
+                           this.getOffers();
+                       })
+                       .catch(function (error) {
+                           this.offers = [];
+                       });
+               },
                deleteSelected (){
+                    this.confirm();
+               },
+               confirm(){
                    swal({
                        title: "Alert",
                        html: "Are you sure that you want to delete these records?",
@@ -121,26 +154,7 @@
                        confirmButtonText: "DELETE",
                        confirmButtonClass: "warning",
                        showLoaderOnConfirm: true,
-                       preConfirm: function() {
-                           return new Promise(function(resolve) {
-                               const url = api_base_path + '{{ twig_api_url_offer_delete }}';
-                               const data = '['+this.checkedValue.map((x)=>'{"id":'+x+'}').join(",")+']';
-
-                               axios({
-                                   method: 'DELETE',
-                                   url: url,
-                                   data: {
-                                       offers: data
-                                   }
-                               })
-                                   .then(function (response) {
-                                       this.getOffers();
-                                   })
-                                   .catch(function (error) {
-                                       console.log(error);
-                                   });
-                           });
-                       }
+                       preConfirm: ()=>this.deleteExecute()
                    }).then(function() {
 
                    });
@@ -149,7 +163,14 @@
                    const url = api_base_path + '{{ twig_api_url_offer_get_all }}';
                    axios.get(url).then(
                         response => this.offers = response.data
-                   );
+                   ).catch(function (error) {
+                       this.offers = [];
+                   });
+               },
+               formatDate(value){
+                   if (value) {
+                       return moment(String(value)).add(1, 'days').format('MMM Do, YYYY');
+                   }
                }
            },
            mounted() {

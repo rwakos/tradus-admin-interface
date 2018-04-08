@@ -66,7 +66,15 @@
                             </div>
                         </div>
                         <div class="row" v-if="image !== '' && ValidURL(image)">
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-right">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label">Created At:</label>
+                                    <div>
+                                        <span v-text="formatDate(created_at)"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Image Preview</label>
                                     <div align="center">
@@ -91,7 +99,7 @@
 {% block javascripts %}
     <script src="{{ asset('vendor/vue/vue-dev.js') }}"></script>
     <script src="{{ asset('vendor/axios/axios.min.js') }}"></script>
-
+    <script src="{{ asset('vendor/moment/moment.js') }}"></script>
     <script>
         const api_base_path = '{{ twig_api_path }}';
         const api_base_key = '{{ twig_api_key }}';
@@ -105,6 +113,7 @@
                 description: '',
                 email: '',
                 image: '',
+                created_at: '',
                 errors: []
             },
 
@@ -136,7 +145,6 @@
 
                     }
                 },
-
                 validate() {
                     this.errors = [];
                     if ($.trim(this.title) === ''){
@@ -171,6 +179,7 @@
                     }
                 },
                 getOffer(){
+                    //Handle not found.....***********************************************************************
                     const url = api_base_path + '{{ twig_api_url_offer_get_one }}' + this.id;
                     axios.get(url).then(
                         response => {
@@ -178,15 +187,23 @@
                             this.description= response.data.description;
                             this.email= response.data.email;
                             this.image= response.data.image;
+                            this.created_at= response.data.created_at;
                         }
 
                     );
-                }, ValidURL(str) {
+                },
+                ValidURL(str) {
                     var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
                     return regex .test(str);
-                }, validateEmail(email) {
+                },
+                validateEmail(email) {
                     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                     return re.test(String(email).toLowerCase());
+                },
+                formatDate(value){
+                    if (value) {
+                        return moment(String(value)).add(1, 'days').format('MMM Do, YYYY');
+                    }
                 }
 
             },
