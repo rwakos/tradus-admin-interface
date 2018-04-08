@@ -91,7 +91,7 @@
                     } else {
                         const url = api_base_path + '{{ twig_api_url_offer_search }}'+this.searchText;
                         axios.get(url).then(
-                            response => this.offers = response.data.data
+                            response => this.offers = response.data
                         );
                     }
                },
@@ -133,7 +133,7 @@
                getOffers(){
                    const url = api_base_path + '{{ twig_api_url_offer_get_all }}';
                    axios.get(url).then(
-                        response => this.offers = response.data.data
+                        response => this.offers = response.data
                    );
                }
            },

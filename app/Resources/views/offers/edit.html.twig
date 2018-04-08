@@ -21,7 +21,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Title</label>
                                     <input type="text" class="form-control" id="title" name="title"
-                                           size="45"
+                                           size="80"
                                            v-model="title"
                                            v-on:blur="evalFixed('title')"
                                            autofocus="autofocus"
@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Email</label>
                                     <input type="text" class="form-control" id="email" name="email"
-                                           size="45"
+                                           size="80"
                                            v-model="email"
                                            v-on:blur="evalFixed('email')"
                                            autofocus="autofocus"
@@ -174,10 +174,10 @@
                     const url = api_base_path + '{{ twig_api_url_offer_get_one }}' + this.id;
                     axios.get(url).then(
                         response => {
-                            this.title= response.data.data.title;
-                            this.description= response.data.data.description;
-                            this.email= response.data.data.email;
-                            this.image= response.data.data.image;
+                            this.title= response.data.title;
+                            this.description= response.data.description;
+                            this.email= response.data.email;
+                            this.image= response.data.image;
                         }
 
                     );
